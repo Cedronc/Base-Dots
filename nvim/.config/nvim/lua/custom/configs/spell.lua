@@ -1,4 +1,12 @@
 -- TODO: Add spelling toggle on or off using `:set spell?, :set nospell, :set spell`
+local function toggle_spell()
+  if vim.o.spell then
+    print("Spelling Inactive")
+  else 
+    print("Spelling Active")
+  end
+  vim.o.spell = not vim.o.spell
+end
 
 -- Add word in a specific language
 local function add_word_to_lang(lang)
@@ -30,6 +38,10 @@ local function add_word_to_lang(lang)
 
   print("Added '" .. word .. "' to " .. lang)
 end
+
+vim.keymap.set('n', '<leader>tz', function()
+  toggle_spell()
+end, { desc = 'Toggle spelling' })
 
 vim.keymap.set('n', '<leader>z', '', { desc = 'Spelling' })
 vim.keymap.set('n', '<leader>zn', function()
