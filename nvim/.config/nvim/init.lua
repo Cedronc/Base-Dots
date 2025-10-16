@@ -1,5 +1,4 @@
 --[[
-
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
@@ -78,18 +77,6 @@ vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
-
--- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
-vim.o.signcolumn = 'yes'
-
-vim.cmd 'set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx'
-vim.cmd 'set tabstop=2'
-vim.cmd 'set shiftwidth=2'
-vim.cmd 'set softtabstop=2'
-vim.cmd 'set noshiftround'
 
 -- Make line numbers default
 vim.o.number = true
@@ -193,6 +180,7 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+vim.keymap.set('n', '<leader>n', '', { desc = 'Notifications' })
 vim.keymap.set('n', '<leader>ns', '<cmd>Telescope notify<CR>', { desc = 'Search Notifications' })
 vim.keymap.set('n', '<leader>nh', function()
   require('notify').history()
@@ -273,7 +261,6 @@ require('lazy').setup({
   -- options to `gitsigns.nvim`.
   --
   -- See `:help gitsigns` to understand what the configuration keys do
-
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -959,13 +946,12 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  require 'kickstart.plugins.indent_line',
+  -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   { import = 'custom.plugins' },
-  {import = 'custom.configs' },
+  { import = 'custom.configs' },
 
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
