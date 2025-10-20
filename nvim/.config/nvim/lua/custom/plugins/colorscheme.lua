@@ -35,4 +35,9 @@ return {
       vim.cmd 'colorscheme vague'
     end,
   },
+  {
+    "scottmckendry/cyberdream.nvim",
+    lazy = false,
+    priority = 1000,
+  }
 }
