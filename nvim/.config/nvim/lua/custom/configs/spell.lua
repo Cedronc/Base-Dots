@@ -1,4 +1,5 @@
--- TODO: Add spelling toggle on or off using `:set spell?, :set nospell, :set spell`
+vim.opt.spelllang = { "en", "nl" } -- Set languages
+
 local function toggle_spell()
   if vim.o.spell then
     print("Spelling Inactive")
