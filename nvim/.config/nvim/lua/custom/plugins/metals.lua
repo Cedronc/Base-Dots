@@ -16,9 +16,12 @@ return {
         showImplicitArguments = true,
         excludedPackages = { 'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl' },
       }
-      metals_config.capabilities = require('blink.cmp').get_lsp_capabilities()
-      metals_config.on_attach = function(client, bufnr) end
 
+      vim.keymap.set('n', '<leader>m', function() require("telescope").extensions.metals.commands() end)
+      metals_config.capabilities = require('blink.cmp').get_lsp_capabilities()
+      metals_config.on_attach = function(client, bufnr)
+        require("metals").setup_dap()
+      end
       return metals_config
     end,
     config = function(self, metals_config)

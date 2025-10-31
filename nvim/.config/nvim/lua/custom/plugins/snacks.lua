@@ -5,23 +5,6 @@ return {
     lazy = false,
     ---@type snacks.Config
     opts = {
-
-      animate = {
-        enabled = true,
-        stages = {
-          open = { "fade_in", "slide_in_top" },
-          close = { "fade_out", "slide_out_bottom" },
-        },
-        duration = {
-          open = 300,   -- in milliseconds
-          close = 200,  -- in milliseconds
-        },
-        easing = {
-          open = "out_cubic",
-          close = "in_quad",
-        },
-        fps = 144, -- Higher = smoother
-      },
       bigfile = { enabled = true },
       dashboard = {
         sections = {
@@ -71,18 +54,8 @@ return {
           { section = "startup" }, -- This was missing a comma before it
         },
       },
-      lazygit = { enabled = true },
       quickfile = { enabled = true },
       -- scope = { enabled = true },
-    },
-    keys = {
-      -- git
-      { "<leader>gB", function() Snacks.picker.git_branches() end, desc = "Git Branches" },
-      { "<leader>gL", function() Snacks.picker.git_log() end, desc = "Git Log" },
-      { "<leader>gs", function() Snacks.picker.git_status() end, desc = "Git Status" },
-      { "<leader>gS", function() Snacks.picker.git_stash() end, desc = "Git Stash" },
-      { "<leader>gd", function() Snacks.picker.git_diff() end, desc = "Git Diff (Hunks)" },
-      { "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "Git Log File" },
     },
   },
 }

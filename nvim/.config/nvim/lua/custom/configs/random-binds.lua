@@ -1,6 +1,24 @@
-vim.keymap.set('n', '<leader>w', ':update<CR>')
-vim.keymap.set('n', '<leader>q', ':q<CR>')
+-- vim.keymap.set('n', '<leader>w', ':update<CR>')
+-- vim.keymap.set('n', '<leader>q', ':q<CR>')
+-- vim.keymap.set('n', '<C-s>vt', ':vertical split<CR> :vertical resize -25<CR> :term<CR>')
 
-vim.keymap.set('n', '<C-s>vt', ':vertical split<CR> :vertical resize -25<CR> :term<CR>')
-
+-- More efficient version that only triggers in insert mode
+-- local colorschemes = {
+--   "default", "desert", "industry", "koehler", "morning", "murphy",
+--   "pablo", "peachpuff", "ron", "shine", "slate", "torte", "zellner"
+-- }
+--
+-- math.randomseed(os.time())
+--
+-- vim.api.nvim_create_autocmd("InsertCharPre", {
+--   callback = function()
+--     local random_index = math.random(1, #colorschemes)
+--     local new_colorscheme = colorschemes[random_index]
+--
+--     if vim.g.colors_name ~= new_colorscheme then
+--       vim.cmd("colorscheme " .. new_colorscheme)
+--     end
+--   end
+-- })
+--
 return {}

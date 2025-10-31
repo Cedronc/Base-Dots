@@ -1,2 +1,3 @@
 -- TODO: fix gitsign toggle
 -- TODO: Add custimazable formatting maybe Conform in init.lua
+-- TODO: Add spell corrections (i think i need to program it myself)
