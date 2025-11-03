@@ -1,7 +1,9 @@
 -- Increase timeout for key sequences
 vim.opt.timeoutlen = 1000  -- default is 1000 (1 second), try 500-1000
 vim.opt.ttimeoutlen = 50  -- for terminal key codes
-vim.opt.winborder = 'rounded'
+
+vim.opt.winborder = 'solid'
+vim.opt.scrolloff = 10
 
 -- vim.cmd 'set path+=**'
 vim.o.conceallevel = 2
