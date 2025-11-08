@@ -3,10 +3,8 @@ return {
     priority = 1000 ,
     config = function()
       -- NOTE: you do not need to call setup if you don't want to.
-      require('gruvbox').setup {
-        -- optional configuration here
-      }
-      vim.cmd 'colorscheme gruvbox'
+      require('gruvbox').setup { }
+      -- vim.cmd 'colorscheme gruvbox
     end,
     opts = {}},
   { -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
@@ -37,6 +35,9 @@ return {
     'vague-theme/vague.nvim',
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other plugins
+    config = function()
+      -- vim.cmd 'colorscheme vague'
+    end,
   },
   {
     "scottmckendry/cyberdream.nvim",
