@@ -1,0 +1,52 @@
+{
+  "group/motherboard": {
+    "orientation": "horizontal",
+    "modules": [
+      "cpu",
+      "power-profiles-daemon",
+      "memory",
+      "temperature",
+      "disk",
+    ]
+  },
+
+  "group/audio": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "pulseaudio",
+      "transition-left-to-right": true
+          },
+    "modules": [
+      "pulseaudio",
+    ]
+  },
+
+  "group/connections": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "bluetooth",
+      "transition-left-to-right": true
+          },
+    "modules": [
+      "network",
+      "bluetooth",
+    ]
+  },
+
+  "group/power": {
+      "orientation": "inherit",
+      "drawer": {
+          "transition-duration": 500,
+          "children-class": "drawer-child",
+          "transition-left-to-right": false
+        },
+      "modules": [
+          "custom/power",
+          "custom/quit",
+          "custom/lock",
+          "custom/reboot"
+        ]
+  },
+}

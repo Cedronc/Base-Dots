@@ -1,0 +1,71 @@
+{
+  "custom/cava_mviz": {
+    "exec": "$HOME/.config/hypr/scripts/cavawaybar.sh",
+    "format": "{}"
+  },
+
+  "custom/appmenu": {
+    "format": " ",
+    "on-click": "sleep 0.2;rofi -show drun -replace",
+  },
+
+  "custom/uptime": {
+      "format": "󰔟 {}",
+      "exec": "uptime -p | sed 's/up //; s/ days/d/; s/ hours/h/; s/ minutes/m/'",
+      "interval": 60
+  },
+
+  "hyprland/window": {
+    "max-length": 60,
+    "rewrite": {
+      "(.*) - Brave": "$1",
+      "(.*) - Chromium": "$1",
+      "(.*) - Brave Search": "$1",
+      "(.*) - Outlook": "$1",
+      "(.*) Microsoft Teams": "$1"
+    },
+    "separate-outputs": true
+  },
+
+  "custom/empty": {
+    "format": ""
+  },
+
+
+  "custom/settings": {
+    "format": " ",
+  },
+
+  "custom/tools": {
+    "format": " ",
+    "tooltip-format": "Tools"
+  },
+
+  "custom/file_manager": {
+    "format": " ",
+    "on-click": "xdg-open . &",
+    "tooltip": true,
+    "tooltip-format": "File Manager",
+  },
+
+  "custom/exit": {
+    "format": " ",
+    "on-click": "wlogout",
+    "on-click-right": "hyprlock",
+    "tooltip-format": "Left: Power menu\nRight: Lock screen"
+    },
+
+  "custom/tty": {
+    "format": " ",
+    "on-click": "$HOME/.config/hypr/scripts/WaybarScripts.sh --term",
+    "tooltip": true,
+    "tooltip-format": "Launch Terminal",
+  },
+
+  "custom/browser": {
+    "format": " ",
+    "on-click": "xdg-open https://",
+    "tooltip": true,
+    "tooltip-format": "Launch Browser",
+  },
+}

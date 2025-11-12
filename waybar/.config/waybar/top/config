@@ -1,0 +1,84 @@
+{
+    "include": [
+      "$HOME/.config/waybar/systemModules",
+      "$HOME/.config/waybar/controlModules",
+      "$HOME/.config/waybar/groupModules",
+    ],
+    "layer": "top",
+    "position": "top",
+    "spacing": 5,
+    "margin": 0,
+    "ipc": true,
+    "modules-left": ["custom/appmenu", "clock"],
+    "modules-center": ["hyprland/workspaces"],
+    "modules-right": ["idle_inhibitor", "battery",
+      "custom/updates", "custom/notifications", "custom/uptime", "tray", "custom/exit"],
+
+
+    "clock": {
+        "format": "󰃮 {:%H:%M %d-%m}",
+        "on-click": "gnome-calendar",
+    },
+
+    "cpu": {
+        "format": "󰘚 {usage}%",
+        "tooltip": true,
+        "interval": 1,
+        "on-click": "ghostty -e btop"
+    },
+
+    "memory": {
+        "format": "󰻟 {}%",
+        "interval": 1,
+        "on-click": "ghostty -e btop"
+    },
+
+    "temperature": {
+        "critical-threshold": 80,
+        "format": "{icon} {temperatureC}°C",
+        "format-icons": ["󱃃", "󰔏", "󱃂"],
+        "on-click": "ghostty -e s-tui"
+    },
+
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰚥 {capacity}%",
+        "format-alt": "{icon} {time}",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    },
+
+    "network": {
+        "format-wifi": "󰖩 {essid} ({signalStrength}%)",
+        "format-ethernet": "󰈀 {ifname}",
+        "format-linked": "󰈀 {ifname} (No IP)",
+        "format-disconnected": "󰖪 Disconnected",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "tooltip-format": "{ifname}: {ipaddr}",
+        "on-click": "ghostty -e nmtui"
+    },
+
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-"
+    },
+
+    "disk": {
+        "interval": 30,
+        "format": "󰋊 {percentage_used}%",
+        "path": "/",
+        "on-click": "ghostty -e gdu /"
+    },
+
+    "tray": {
+        "icon-size": 18,
+        "spacing": 5
+    }
+},

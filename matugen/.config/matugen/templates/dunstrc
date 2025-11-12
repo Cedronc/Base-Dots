@@ -1,0 +1,53 @@
+[global]
+    mouse_middle_click = context,close_current #close_current is optional
+    follow = keyboard
+    monitor = 0
+    indicate_hidden = yes
+    width = (300, 400)
+    height = (150, 200)
+    separator_height = 10
+    gap_size = 10
+    padding = 16
+    horizontal_padding = 20
+    frame_width = 2
+    sort = urgency_descending
+    idle_threshold = 120
+    font = JetBrainsMono Nerd Font 10
+    line_height = 0
+    format = "<b>%s</b>\n%b"
+    alignment = center
+    vertical_alignment = center
+    icon_theme = "Adwaita"
+    icon_position = left
+    min_icon_size = 0
+    max_icon_size = 128
+    sticky_history = yes
+    history_length = 20
+    dmenu = dmenu = rofi -dmenu -p "dunst:"
+    browser = /usr/bin/brave
+    corner_radius = 8
+    ignore_newline = no
+    force_xinerama = no
+
+    # Background shadow/border
+    frame_color = "{{ colors.on_surface.default.hex }}"
+    separator_color = frame
+
+    # Center notifications on screen
+    # origin = center
+
+[urgency_low]
+    background = "{{ colors.on_primary.default.hex }}"
+    foreground = "{{ colors.on_surface.default.hex }}"
+    timeout = 3
+
+[urgency_normal]
+    background = "{{ colors.on_primary.default.hex }}"
+    foreground = "{{ colors.on_surface.default.hex }}"
+    timeout = 3
+
+[urgency_critical]
+    background = "{{ colors.tertiary.default.hex }}"
+    foreground = "{{ colors.background.default.hex }}"
+    frame_color = "{{ colors.background.default.hex }}"
+    timeout = 0
