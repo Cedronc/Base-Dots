@@ -8,6 +8,8 @@
       "tooltip": true
   },
 
+
+
   "custom/updates": {
       "format": "󰚰 {}",
       "exec": "checkupdates | wc -l",
@@ -29,4 +31,5 @@
       "tooltip": true,
     "tooltip-format": "Left Click: Reboot",
   },
+
 }

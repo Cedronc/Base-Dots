@@ -9,11 +9,34 @@
     "spacing": 5,
     "margin": 0,
     "ipc": true,
-    "modules-left": ["custom/appmenu", "clock"],
+    "modules-left": ["custom/appmenu", "clock", "bluetooth"],
     "modules-center": ["hyprland/workspaces"],
-    "modules-right": ["idle_inhibitor", "battery",
+    "modules-right": ["idle_inhibitor", "battery","power-profiles-daemon",
       "custom/updates", "custom/notifications", "custom/uptime", "tray", "custom/exit"],
 
+
+    // --- Bluetooth ---
+    "bluetooth": {
+      "format": " {status}",
+      "format-disabled": " off",
+      "format-connected": " {num_connected} ",
+      "on-click": "blueman-manager",     // Or "bluetoothctl connect" if you prefer CLI
+      "on-click-right": "rfkill toggle bluetooth",
+      "interval": 10
+    },
+
+    // --- POWER PROFILES ---
+    "power-profiles-daemon": {
+      "format": "{icon}",
+      "format-icons": {
+        "performance": "",
+        "balanced": "",
+        "power-saver": ""
+      },
+      "tooltip": "Power profile: {profile}",
+      "on-click": "powerprofilesctl set performance",  // Example toggle (see script below)
+      "on-click-right": "powerprofilesctl set power-saver"
+    },
 
     "clock": {
         "format": "󰃮 {:%H:%M %d-%m}",

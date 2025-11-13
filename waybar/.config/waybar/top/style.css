@@ -238,14 +238,10 @@ tooltip label {
     border-radius: 5px 5px 5px 5px;
     padding: 0px 10px 0px 10px;
     margin: 3px 5px 3px 0px;
-    border: 3px solid @border_color;
+    border-radius: 5px 5px 5px 5px;
+    font-size: 14px;
 }
 
-#bluetooth.off {
-    background-color: transparent;
-    padding: 0px;
-    margin: 0px;
-}
 
 /* -----------------------------------------------------
  * Battery
@@ -255,10 +251,10 @@ tooltip label {
     background-color: @background;
     color: @on_surface;
     border-radius: 5px 5px 5px 5px;
-    padding: 0px 15px 0px 10px;
-    margin: 3px 5px 3px 0px;
+    padding: 0px 13px 0px 10px;
+    margin: 3px 0px 3px 0px;
     opacity: 1.0;
-    border: 3px solid @border_color;
+    /* border: 3px solid @border_color; */
 }
 
 #battery.charging, #battery.plugged {
@@ -387,4 +383,17 @@ tooltip label {
 #custom-updates.red {
     background-color: @error;
     color: @on_error;
+}
+
+/* -----------------------------------------------------
+ * Power Profiles Daemon
+ * ------------------------------------------------------ */
+
+ #power-profiles-daemon{
+    background-color: @background;
+    color: @on_surface;
+    font-size: 14px;
+    border-radius: 5px 5px 5px 5px;
+    padding: 0px 14px 0px 10px;
+    margin: 2.5px 0px 2.5px 0px;
 }
