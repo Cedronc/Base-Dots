@@ -9,7 +9,7 @@
     "spacing": 5,
     "margin": 0,
     "ipc": true,
-    "modules-left": ["custom/appmenu", "clock", "bluetooth"],
+    "modules-left": ["custom/appmenu", "clock"],
     "modules-center": ["hyprland/workspaces"],
     "modules-right": ["idle_inhibitor", "battery","power-profiles-daemon",
       "custom/updates", "custom/notifications", "custom/uptime", "tray", "custom/exit"],
