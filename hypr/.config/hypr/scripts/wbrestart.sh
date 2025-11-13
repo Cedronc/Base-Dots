@@ -1,7 +1,6 @@
 #!/bin/bash
 
-killall -9 swaync
-killall -9 waybar
+pkill -f waybar
 
 # waybar
 waybar --config ~/.config/waybar/top/config --style ~/.config/waybar/top/style.css &
