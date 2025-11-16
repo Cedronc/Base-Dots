@@ -1,4 +1,24 @@
 {
+  "custom/controls-wrap": {
+    "format": "🎴",
+      "tooltip-format": "Controls group"
+  },
+
+  "group/controls": {
+    "orientation": "horizontal",
+      "drawer": {
+        "transition-duration": 500,
+        "transition-left-to-right": true
+      },
+      "modules": [
+        "custom/controls-wrap",
+        "power-profiles-daemon",
+        "custom/updates",
+        "bluetooth"
+      ]
+  },
+
+
   "group/motherboard": {
     "orientation": "horizontal",
     "modules": [

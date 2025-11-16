@@ -8,8 +8,6 @@
       "tooltip": true
   },
 
-
-
   "custom/updates": {
       "format": "󰚰 {}",
       "exec": "checkupdates | wc -l",

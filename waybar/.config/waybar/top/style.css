@@ -162,13 +162,19 @@ tooltip label {
 }
 
 /* -----------------------------------------------------
- * Hardware Group
+ * Group
  * ----------------------------------------------------- */
 
-#disk,#memory,#cpu,#language {
-    margin: 0px;
-    padding: 0px;
+#group-controls > * {
+  margin: 10px 10px;
+}
+#custom-controls-wrap {
+    background-color: @background;
     color: @on_surface;
+    border-radius: 5px 5px 5px 5px;
+    padding: 0px 6px 0px 6px;
+    margin: 2.5px;
+    font-size: 14px;
 }
 
 /* -----------------------------------------------------
@@ -237,8 +243,8 @@ tooltip label {
     color: @on_surface;
     border-radius: 5px 5px 5px 5px;
     padding: 0px 10px 0px 10px;
-    margin: 3px 5px 3px 0px;
-    border-radius: 5px 5px 5px 5px;
+    margin: 2.5px;
+    border-radius: 5px;
     font-size: 14px;
 }
 
@@ -367,7 +373,7 @@ tooltip label {
     color: @on_surface;
     border-radius: 5px 5px 5px 5px;
     padding: 0px 10px 0px 10px;
-    margin: 2.5px 0px 2.5px 0px;
+    margin: 2.5px 2.5px;
     font-size: 14px;
 }
 
@@ -394,6 +400,6 @@ tooltip label {
     color: @on_surface;
     font-size: 14px;
     border-radius: 5px 5px 5px 5px;
-    padding: 0px 14px 0px 10px;
-    margin: 2.5px 0px 2.5px 0px;
+    padding: 0px 18px 0px 10px;
+    margin: 2.5px 2.5px;
 }

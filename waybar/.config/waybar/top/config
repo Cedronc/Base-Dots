@@ -9,10 +9,9 @@
     "spacing": 5,
     "margin": 0,
     "ipc": true,
-    "modules-left": ["custom/appmenu", "clock"],
+    "modules-left": ["custom/appmenu", "clock", "group/controls"],
     "modules-center": ["hyprland/workspaces"],
-    "modules-right": ["idle_inhibitor", "battery","power-profiles-daemon",
-      "custom/updates", "custom/notifications", "custom/uptime", "tray", "custom/exit"],
+    "modules-right": ["idle_inhibitor", "battery", "custom/notifications", "custom/uptime", "tray", "custom/exit"],
 
 
     // --- Bluetooth ---
@@ -20,8 +19,7 @@
       "format": " {status}",
       "format-disabled": " off",
       "format-connected": " {num_connected} ",
-      "on-click": "blueman-manager",     // Or "bluetoothctl connect" if you prefer CLI
-      "on-click-right": "rfkill toggle bluetooth",
+      "on-click": "overskride",     // Or "bluetoothctl connect" if you prefer CLI
       "interval": 10
     },
 
@@ -102,6 +100,6 @@
 
     "tray": {
         "icon-size": 18,
-        "spacing": 5
+        "spacing": 5,
     }
 },
