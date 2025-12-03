@@ -625,8 +625,8 @@ require('lazy').setup({
         angularls = {},
         pyright = {},
         ts_ls = {},
-        dockerls = {},
-        docker_compose_language_service = {},
+        -- dockerls = {},
+        -- docker_compose_language_service = {},
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },

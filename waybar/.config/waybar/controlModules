@@ -1,33 +1,38 @@
 {
   "idle_inhibitor": {
-      "format": "{icon}",
+    "format": "{icon}",
       "format-icons": {
-          "activated": "󰈈 ",
-          "deactivated": "󰈉 ",
+        "activated": "󰈈 ",
+        "deactivated": "󰈉 ",
       },
       "tooltip": true
   },
 
-  "custom/updates": {
+  "pulseaudio": {
+    "on-click": "pwvucontrol",
+    "on-click-right": "wpctl set-volume 50 0%"
+  },
+
+    "custom/updates": {
       "format": "󰚰 {}",
       "exec": "checkupdates | wc -l",
       "interval": 3600,
       "on-click": "ghostty -e sudo pacman -Syu",
       "signal": 8
-  },
+    },
 
-  "custom/notifications": {
-    "format": " ",
-    "on-click": "dunstctl history-pop",
-    "on-click-right": "notify-send 'Toggle Notifications' && sleep 0.5 && dunstctl set-paused toggle",
-    "tooltip-format": "Left Click: history pop \nRight Click: Suspend Notifications",
-  },
+    "custom/notifications": {
+      "format": " ",
+      "on-click": "dunstctl history-pop",
+      "on-click-right": "notify-send 'Toggle Notifications' && sleep 0.5 && dunstctl set-paused toggle",
+      "tooltip-format": "Left Click: history pop \nRight Click: Suspend Notifications",
+    },
 
-  "custom/reboot": {
+    "custom/reboot": {
       "format": "󰜉 ",
       "on-click": "systemctl reboot",
       "tooltip": true,
-    "tooltip-format": "Left Click: Reboot",
-  },
+      "tooltip-format": "Left Click: Reboot",
+    },
 
 }

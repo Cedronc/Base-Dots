@@ -1,4 +1,5 @@
 {
+
   "custom/controls-wrap": {
     "format": "🎴",
       "tooltip-format": "Controls group"
@@ -14,10 +15,10 @@
         "custom/controls-wrap",
         "power-profiles-daemon",
         "custom/updates",
-        "bluetooth"
+        "backlight/slider",
+        "pulseaudio"
       ]
   },
-
 
   "group/motherboard": {
     "orientation": "horizontal",

@@ -1,0 +1,68 @@
+
+keybinds {
+    bind "Mod4+Return"        "exec \"${programs.terminal}\""
+    bind "Mod4+Shift+Return"  "exec \"${programs.terminal}\""
+    bind "Mod4+C"             "exec \"hyprpicker -a\""
+    bind "Mod4+D"             "exec \"close\""
+    bind "Mod4+M"             "exec \"wlogout\""
+    bind "Mod4+E"             "exec \"[float;] ${programs.file_manager}\""
+    bind "Mod4+B"             "exec \"${programs.browser}\""
+    bind "Mod4+Space"         "exec \"${programs.menu} -show drun\""
+    bind "Mod1+Tab"           "exec \"${programs.menu} -show window\""
+
+    // Focus movement
+    bind "Mod4+H"             "exec \"focus-left\""
+    bind "Mod4+L"             "exec \"focus-right\""
+    bind "Mod4+K"             "exec \"focus-up\""
+    bind "Mod4+J"             "exec \"focus-down\""
+
+    // Move window
+    bind "Mod4+Control+H"     "exec \"move-left\""
+    bind "Mod4+Control+L"     "exec \"move-right\""
+    bind "Mod4+Control+K"     "exec \"move-up\""
+    bind "Mod4+Control+J"     "exec \"move-down\""
+
+    // Resize
+    bind "Mod4+Shift+H"       "exec \"resize -50 0\""
+    bind "Mod4+Shift+L"       "exec \"resize 50 0\""
+    bind "Mod4+Shift+J"       "exec \"resize 0 50\""
+    bind "Mod4+Shift+K"       "exec \"resize 0 -50\""
+
+    // Workspaces 1–10
+    bind "Mod4+1"             "exec \"workspace 1\""
+    bind "Mod4+2"             "exec \"workspace 2\""
+    bind "Mod4+3"             "exec \"workspace 3\""
+    bind "Mod4+4"             "exec \"workspace 4\""
+    bind "Mod4+5"             "exec \"workspace 5\""
+    bind "Mod4+6"             "exec \"workspace 6\""
+    bind "Mod4+7"             "exec \"workspace 7\""
+    bind "Mod4+8"             "exec \"workspace 8\""
+    bind "Mod4+9"             "exec \"workspace 9\""
+    bind "Mod4+0"             "exec \"workspace 10\""
+
+    // Move window to workspace
+    bind "Mod4+Shift+1"       "exec \"move-to-workspace 1\""
+    bind "Mod4+Shift+2"       "exec \"move-to-workspace 2\""
+    bind "Mod4+Shift+3"       "exec \"move-to-workspace 3\""
+    bind "Mod4+Shift+4"       "exec \"move-to-workspace 4\""
+    bind "Mod4+Shift+5"       "exec \"move-to-workspace 5\""
+    bind "Mod4+Shift+6"       "exec \"move-to-workspace 6\""
+    bind "Mod4+Shift+7"       "exec \"move-to-workspace 7\""
+    bind "Mod4+Shift+8"       "exec \"move-to-workspace 8\""
+    bind "Mod4+Shift+9"       "exec \"move-to-workspace 9\""
+    bind "Mod4+Shift+0"       "exec \"move-to-workspace 10\""
+
+    // Scratchpad
+    bind "Mod4+T"             "exec \"scratchpad-toggle magic\""
+
+    // XF86 keys
+    bind "XF86AudioRaiseVolume" "exec \"mediacontrol.sh volume_up\""
+    bind "XF86AudioLowerVolume" "exec \"mediacontrol.sh volume_down\""
+    bind "XF86AudioMute"        "exec \"mediacontrol.sh volume_mute\""
+    bind "XF86MonBrightnessUp"  "exec \"mediacontrol.sh brightness_up\""
+    bind "XF86MonBrightnessDown" "exec \"mediacontrol.sh brightness_down\""
+    bind "XF86AudioNext"        "exec \"mediacontrol.sh next\""
+    bind "XF86AudioPrev"        "exec \"mediacontrol.sh prev\""
+    bind "XF86AudioPlay"        "exec \"mediacontrol.sh play_pause\""
+    bind "XF86AudioPause"       "exec \"mediacontrol.sh play_pause\""
+}

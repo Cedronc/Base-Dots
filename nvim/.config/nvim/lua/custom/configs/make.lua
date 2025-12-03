@@ -5,6 +5,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
     local filetypes = {
       scala = 'scala %',
       sh = 'bash %',
+      python = 'uv run %',
     }
     local makeprg = filetypes[vim.bo.filetype] or nil
     if not (makeprg == nil) then
