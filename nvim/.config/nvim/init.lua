@@ -562,7 +562,7 @@ require('lazy').setup({
       })
 
       -- Diagnostic keymaps
-      vim.keymap.set('n', '<leader>D', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+      vim.keymap.set('n', '<leader>D', vim.diagnostic.setqflist, { desc = 'Open diagnostic [Q]uickfix list' })
       vim.keymap.set('n', '<leader>d', function() vim.diagnostic.open_float() end, { desc = 'Open error in floating box' })
 
       -- Diagnostic Config
