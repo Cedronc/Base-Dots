@@ -1,3 +1,4 @@
+-- TODO: Add spellcomplete toggle
 -- TODO: Add custimazable formatting maybe Conform in init.lua
 -- TODO: Add treesitter context maybe?
 -- TODO: Add custom snippets
