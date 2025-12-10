@@ -22,6 +22,6 @@
 -- })
 --
 
-vim.kepmap.set('n', '<leader>os', ':ObisidianSearch<CR>')
+vim.keymap.set('n', '<leader>os', ':ObsidianSearch<CR>')
 
 return {}
