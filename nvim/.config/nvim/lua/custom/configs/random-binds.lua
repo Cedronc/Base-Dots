@@ -21,4 +21,7 @@
 --   end
 -- })
 --
+
+vim.kepmap.set('n', '<leader>os', ':ObisidianSearch<CR>')
+
 return {}
