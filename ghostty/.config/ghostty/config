@@ -44,3 +44,4 @@
 
 confirm-close-surface = false
 background-opacity = 0.75
+clipboard-paste-protection = false
