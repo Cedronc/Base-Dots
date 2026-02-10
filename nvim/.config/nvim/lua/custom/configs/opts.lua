@@ -6,6 +6,7 @@ vim.opt.winborder = 'solid'
 vim.opt.scrolloff = 10
 
 -- vim.cmd 'set path+=**'
+-- Combine characters besides eachother
 vim.o.conceallevel = 2
 
 --[[ Setting options ]]

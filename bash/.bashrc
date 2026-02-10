@@ -41,3 +41,5 @@ export PATH="$PATH:$HOME/.local/share/coursier/bin"
 # Aliasses
 alias lg="lazygit"
 alias vim="nvim"
+
+[ -f "/home/cedric/.ghcup/env" ] && . "/home/cedric/.ghcup/env" # ghcup-env
