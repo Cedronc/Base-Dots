@@ -14,6 +14,8 @@ REPO_ROOT="${REPO_ROOT:-$HOME/Repositories}"
 # Edit this array to add more "flat" parents.
 FLAT_PARENTS=(
   "VUB"
+  "Castars"
+  "astars"
   # "forks"   ← uncomment / add more as needed
 )
 
@@ -91,7 +93,7 @@ pick_repo() {
             echo "📁 $dir"
             echo ""
             if git -C $dir rev-parse --git-dir &>/dev/null 2>&1
-                git -C $dir log --oneline --color=always -15 2>/dev/null
+                git -C $dir log --oneline --color=always -5 2>/dev/null
                 echo ""
                 git -C $dir status --short --branch 2>/dev/null
             else
@@ -130,7 +132,7 @@ launch_tmux() {
   tmux send-keys -t "$session_name:git" "lazygit" Enter
 
   # Split horizontally → pane 2 at the bottom
-  tmux split-window -v -p 30 -t "$session_name:git" -c "$repo_path"
+  tmux split-window -v -p 15 -t "$session_name:git" -c "$repo_path"
 
   # Pane 2 — a small shell / quick commands area
   tmux send-keys -t "$session_name:git.2" \
@@ -144,7 +146,7 @@ launch_tmux() {
   tmux send-keys -t "$session_name:files" "yazi" Enter
 
   # Split vertically → pane 2 on the right (40 %)
-  tmux split-window -h -p 40 -t "$session_name:files" -c "$repo_path"
+  tmux split-window -h -p 30 -t "$session_name:files" -c "$repo_path"
 
   # Pane 2 — empty shell, ready to go
   tmux send-keys -t "$session_name:files.2" \
@@ -152,8 +154,7 @@ launch_tmux() {
 
   # ── Window 3: "term" — plain terminal ───────────────────
   tmux new-window -t "$session_name" -n "term" -c "$repo_path"
-  tmux send-keys -t "$session_name:term" \
-    'echo "  $(pwd)"' Enter
+  tmux send-keys -t "$session_name:term"
 
   # ── Status-bar cosmetics (scoped to this session) ────────
   tmux set-option -t "$session_name" status-style         "bg=#1e1e2e,fg=#cdd6f4"
