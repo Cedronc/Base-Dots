@@ -1,0 +1,192 @@
+#!/bin/bash
+# ╔══════════════════════════════════════════════════════════╗
+# ║              repo-launch — tmux session launcher         ║
+# ║  Opens repos from ~/Repositories with a fuzzy picker.   ║
+# ║  Configured "flat" parent dirs are transparently        ║
+# ║  expanded so only their children are selectable.        ║
+# ╚══════════════════════════════════════════════════════════╝
+
+# ─── Configuration ────────────────────────────────────────
+REPO_ROOT="${REPO_ROOT:-$HOME/Repositories}"
+
+# Directories inside REPO_ROOT whose *children* should be
+# listed directly (the parent itself won't be selectable).
+# Edit this array to add more "flat" parents.
+FLAT_PARENTS=(
+  "VUB"
+  # "forks"   ← uncomment / add more as needed
+)
+
+# ─── Colour palette for fzf ───────────────────────────────
+FZF_COLORS="
+  --color=bg+:#1e1e2e,bg:#11111b,spinner:#f5c2e7,hl:#cba6f7
+  --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5c2e7
+  --color=marker:#f5c2e7,fg+:#cdd6f4,prompt:#cba6f7,hl+:#cba6f7
+"
+
+# ─── Helpers ──────────────────────────────────────────────
+die() { echo "✗ $*" >&2; exit 1; }
+
+require() {
+  for cmd in "$@"; do
+    command -v "$cmd" &>/dev/null || die "'$cmd' is not installed or not in PATH."
+  done
+}
+
+is_flat_parent() {
+  local dir="$1"
+  local base
+  base=$(basename "$dir")
+  for p in "${FLAT_PARENTS[@]}"; do
+    [[ "$base" == "$p" ]] && return 0
+  done
+  return 1
+}
+
+# ─── Build the candidate list ─────────────────────────────
+build_candidates() {
+  local -a candidates=()
+
+  for entry in "$REPO_ROOT"/*/; do
+    [[ -d "$entry" ]] || continue
+
+    if is_flat_parent "$entry"; then
+      # Expand one level deeper
+      for child in "$entry"*/; do
+        [[ -d "$child" ]] && candidates+=("$child")
+      done
+    else
+      candidates+=("$entry")
+    fi
+  done
+
+  # Print with a human-friendly label: strip REPO_ROOT prefix
+  for c in "${candidates[@]}"; do
+    local label="${c#"$REPO_ROOT"/}"
+    label="${label%/}"            # strip trailing slash
+    printf '%s\t%s\n' "$label" "$c"
+  done
+}
+
+# ─── Pick with fzf ────────────────────────────────────────
+pick_repo() {
+  local selection
+  selection=$(
+    build_candidates \
+    | fzf \
+        --with-nth=1 \
+        --delimiter=$'\t' \
+        --prompt="  repo » " \
+        --pointer="▶" \
+        --marker="●" \
+        --height=60% \
+        --layout=reverse \
+        --border=rounded \
+        --border-label=" 󰊢 Repositories " \
+        --border-label-pos=3 \
+        --info=inline \
+        --header="  ctrl-c / esc to abort" \
+        --preview='
+            set dir (string split \t {})[-1]
+            echo "📁 $dir"
+            echo ""
+            if git -C $dir rev-parse --git-dir &>/dev/null 2>&1
+                git -C $dir log --oneline --color=always -15 2>/dev/null
+                echo ""
+                git -C $dir status --short --branch 2>/dev/null
+            else
+                ls -lAh --color=always $dir 2>/dev/null | head -30
+            end
+        ' \
+        --preview-window=right:50%:wrap \
+        $FZF_COLORS
+  ) || return 1
+
+  # Return the path (second field)
+  awk -F'\t' '{print $2}' <<< "$selection"
+}
+
+# ─── tmux session launcher ────────────────────────────────
+launch_tmux() {
+  local repo_path="$1"
+  local session_name
+  session_name=$(basename "$repo_path" | tr ' ./' '---')
+
+  # Reattach if session already exists
+  if tmux has-session -t "$session_name" 2>/dev/null; then
+    echo "  Session '$session_name' already exists — attaching…"
+    if [[ -n "$TMUX" ]]; then
+      tmux switch-client -t "$session_name"
+    else
+      tmux attach-session -t "$session_name"
+    fi
+    return
+  fi
+
+  # ── Create session + window 1: "git" ────────────────────
+  tmux new-session -d -s "$session_name" -n "git" -c "$repo_path"
+
+  # Pane 1 — lazygit (full width, top ~70 %)
+  tmux send-keys -t "$session_name:git" "lazygit" Enter
+
+  # Split horizontally → pane 2 at the bottom
+  tmux split-window -v -p 30 -t "$session_name:git" -c "$repo_path"
+
+  # Pane 2 — a small shell / quick commands area
+  tmux send-keys -t "$session_name:git.2" \
+    'echo "  $(basename $(pwd))  |  $(git branch --show-current 2>/dev/null || echo "no git")"' \
+    Enter
+
+  # ── Window 2: "files" — yazi + shell side by side ───────
+  tmux new-window -t "$session_name" -n "files" -c "$repo_path"
+
+  # Pane 1 — yazi file manager
+  tmux send-keys -t "$session_name:files" "yazi" Enter
+
+  # Split vertically → pane 2 on the right (40 %)
+  tmux split-window -h -p 40 -t "$session_name:files" -c "$repo_path"
+
+  # Pane 2 — empty shell, ready to go
+  tmux send-keys -t "$session_name:files.2" \
+    'echo "  shell ready"' Enter
+
+  # ── Window 3: "term" — plain terminal ───────────────────
+  tmux new-window -t "$session_name" -n "term" -c "$repo_path"
+  tmux send-keys -t "$session_name:term" \
+    'echo "  $(pwd)"' Enter
+
+  # ── Status-bar cosmetics (scoped to this session) ────────
+  tmux set-option -t "$session_name" status-style         "bg=#1e1e2e,fg=#cdd6f4"
+  tmux set-option -t "$session_name" window-status-style  "fg=#6c7086"
+  tmux set-option -t "$session_name" window-status-current-style "fg=#cba6f7,bold"
+  tmux set-option -t "$session_name" status-left  "#[fg=#89b4fa,bold] 󰊢 #S #[fg=#6c7086]│ "
+  tmux set-option -t "$session_name" status-right "#[fg=#6c7086]%H:%M  %d %b "
+  tmux set-option -t "$session_name" status-left-length 40
+
+  # Focus window 1 pane 1 (lazygit) on attach
+  tmux select-window -t "$session_name:git"
+  tmux select-pane  -t "$session_name:git.1"
+
+  # Attach
+  if [[ -n "$TMUX" ]]; then
+    tmux switch-client -t "$session_name"
+  else
+    tmux attach-session -t "$session_name"
+  fi
+}
+
+# ─── Main ─────────────────────────────────────────────────
+main() {
+  require fzf tmux
+
+  [[ -d "$REPO_ROOT" ]] || die "REPO_ROOT '$REPO_ROOT' does not exist."
+
+  local repo
+  repo=$(pick_repo) || { echo "  Aborted."; exit 0; }
+
+  [[ -d "$repo" ]] || die "Selected path '$repo' is not a directory."
+
+  launch_tmux "$repo"
+}
+
+main "$@"

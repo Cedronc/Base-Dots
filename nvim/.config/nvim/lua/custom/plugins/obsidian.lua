@@ -2,6 +2,7 @@ vim.keymap.set('n', '<leader>os', ':ObsidianSearch<CR>')
 vim.keymap.set('n', '<leader>ot', ':ObsidianTags<CR>')
 vim.keymap.set('n', '<leader>oi', ':ObsidianPasteImg<CR>')
 vim.keymap.set('n', '<leader>of', ':ObsidianFollowLink<CR>')
+vim.keymap.set('n', '<leader>oo', ':ObsidianOpen<CR>')
 
 return {
   "epwalsh/obsidian.nvim",

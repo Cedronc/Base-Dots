@@ -327,10 +327,10 @@ require('lazy').setup({
       -- See `:help telescope` and `:help telescope.setup()`
       require('telescope').setup {
         defaults = {
-          layout_strategy = "horizontal",
+          layout_strategy = 'horizontal',
           layout_config = {
             horizontal = {
-              prompt_position = "bottom",
+              prompt_position = 'bottom',
               width = { padding = 0 },
               height = { padding = 0 },
               preview_width = 0.5,
@@ -338,7 +338,7 @@ require('lazy').setup({
           },
           border = true,
         },
-        picker = { "fzf" },
+        picker = { 'fzf' },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -356,7 +356,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sc', builtin.commands, { desc = '[S]earch [C]ommands' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>st', ":Telescope todo-comments<CR>", { desc = '[S]earch [T]odo comments' })
+      vim.keymap.set('n', '<leader>st', ':Telescope todo-comments<CR>', { desc = '[S]earch [T]odo comments' })
       vim.keymap.set('n', '<leader>sq', builtin.quickfix, { desc = '[S]earch [Q]uickfix' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
@@ -565,7 +565,9 @@ require('lazy').setup({
 
       -- Diagnostic keymaps
       vim.keymap.set('n', '<leader>D', vim.diagnostic.setqflist, { desc = 'Open diagnostic [Q]uickfix list' })
-      vim.keymap.set('n', '<leader>d', function() vim.diagnostic.open_float() end, { desc = 'Open error in floating box' })
+      vim.keymap.set('n', '<leader>d', function()
+        vim.diagnostic.open_float()
+      end, { desc = 'Open error in floating box' })
 
       -- Diagnostic Config
       -- See :help vim.diagnostic.Opts
@@ -716,6 +718,7 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        haskell = { 'ormolu' },
         -- Conform can also run multiple formatters sequentially
         -- python = { 'isort', 'black' },
         --
@@ -823,7 +826,7 @@ require('lazy').setup({
     },
   },
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = true} },
+  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = true } },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
@@ -867,7 +870,25 @@ require('lazy').setup({
     -- main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'prolog', 'scala', 'c', 'dockerfile', 'css', 'diff', 'html', 'haskell', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = {
+        'bash',
+        'prolog',
+        'scala',
+        'lisp',
+        'c',
+        'dockerfile',
+        'css',
+        'diff',
+        'html',
+        'haskell',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
