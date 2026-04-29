@@ -8,6 +8,7 @@
 
 # ─── Configuration ────────────────────────────────────────
 REPO_ROOT="${REPO_ROOT:-$HOME/Repositories}"
+DOCUMENTS_ROOT="${DOCUMENTS_ROOT:-$HOME/Documents}"
 
 # Directories inside REPO_ROOT whose *children* should be
 # listed directly (the parent itself won't be selectable).
@@ -15,7 +16,7 @@ REPO_ROOT="${REPO_ROOT:-$HOME/Repositories}"
 FLAT_PARENTS=(
   "VUB"
   "Castars"
-  "astars"
+  "ObsidianVaults"
   # "forks"   ← uncomment / add more as needed
 )
 
@@ -48,24 +49,34 @@ is_flat_parent() {
 # ─── Build the candidate list ─────────────────────────────
 build_candidates() {
   local -a candidates=()
+  local -a search_roots=("$REPO_ROOT")
 
-  for entry in "$REPO_ROOT"/*/; do
-    [[ -d "$entry" ]] || continue
+  # Add Documents root only if it differs from REPO_ROOT
+  if [[ "$DOCUMENTS_ROOT" != "$REPO_ROOT" ]]; then
+    search_roots+=("$DOCUMENTS_ROOT")
+  fi
 
-    if is_flat_parent "$entry"; then
-      # Expand one level deeper
-      for child in "$entry"*/; do
-        [[ -d "$child" ]] && candidates+=("$child")
-      done
-    else
-      candidates+=("$entry")
-    fi
+  for root in "${search_roots[@]}"; do
+    for entry in "$root"/*/; do
+      [[ -d "$entry" ]] || continue
+      if is_flat_parent "$entry"; then
+        for child in "$entry"*/; do
+          [[ -d "$child" ]] && candidates+=("$child")
+        done
+      else
+        candidates+=("$entry")
+      fi
+    done
   done
 
-  # Print with a human-friendly label: strip REPO_ROOT prefix
   for c in "${candidates[@]}"; do
-    local label="${c#"$REPO_ROOT"/}"
-    label="${label%/}"            # strip trailing slash
+    local label
+    if [[ "$c" == "$DOCUMENTS_ROOT/"* ]]; then
+      label="Documents/${c#"$DOCUMENTS_ROOT/"}"
+    else
+      label="${c#"$REPO_ROOT"/}"
+    fi
+    label="${label%/}"
     printf '%s\t%s\n' "$label" "$c"
   done
 }
@@ -128,11 +139,15 @@ launch_tmux() {
   # ── Create session + window 1: "git" ────────────────────
   tmux new-session -d -s "$session_name" -n "git" -c "$repo_path"
 
-  # Pane 1 — lazygit (full width, top ~70 %)
-  tmux send-keys -t "$session_name:git" "lazygit" Enter
+  # Pane 1 — lazygit or vibe (full width, top ~70 %)
+  if [[ "$repo_path" == "$DOCUMENTS_ROOT"/* ]]; then
+    tmux send-keys -t "$session_name:git" "vibe" Enter
+  else
+    tmux send-keys -t "$session_name:git" "lazygit" Enter
+  fi
 
   # Split horizontally → pane 2 at the bottom
-  tmux split-window -v -p 15 -t "$session_name:git" -c "$repo_path"
+  # tmux split-window -v -p 15 -t "$session_name:git" -c "$repo_path"
 
   # Pane 2 — a small shell / quick commands area
   tmux send-keys -t "$session_name:git.2" \
@@ -143,10 +158,10 @@ launch_tmux() {
   tmux new-window -t "$session_name" -n "files" -c "$repo_path"
 
   # Pane 1 — yazi file manager
-  tmux send-keys -t "$session_name:files" "yazi" Enter
+  tmux send-keys -t "$session_name:files" "lf" Enter
 
   # Split vertically → pane 2 on the right (40 %)
-  tmux split-window -h -p 30 -t "$session_name:files" -c "$repo_path"
+  # tmux split-window -h -p 30 -t "$session_name:files" -c "$repo_path"
 
   # Pane 2 — empty shell, ready to go
   tmux send-keys -t "$session_name:files.2" \

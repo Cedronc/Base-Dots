@@ -734,6 +734,7 @@ require('lazy').setup({
     version = '1.*',
     dependencies = {
       -- Snippet Engine
+      'milanglacier/minuet-ai.nvim',
       {
         'L3MON4D3/LuaSnip',
         version = '2.*',
@@ -789,6 +790,8 @@ require('lazy').setup({
         preset = 'default',
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
+
+       -- ['<A-y>'] = require('minuet').make_blink_map(),
       },
 
       appearance = {
@@ -801,11 +804,21 @@ require('lazy').setup({
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
         documentation = { auto_show = false, auto_show_delay_ms = 500 },
+        trigger = { prefetch_on_insert = false },
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        default = { 'lsp', 'path', 'snippets', 'lazydev', 'minuet' },
         providers = {
+          minuet = {
+            name = 'minuet',
+            module = 'minuet.blink',
+            async = true,
+            -- Should match minuet.config.request_timeout * 1000,
+            -- since minuet.config.request_timeout is in seconds
+            timeout_ms = 3000,
+            score_offset = 50, -- Gives minuet higher priority among suggestions
+          },
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
         },
       },
