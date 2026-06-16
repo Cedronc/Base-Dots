@@ -140,8 +140,8 @@ launch_tmux() {
   tmux new-session -d -s "$session_name" -n "git" -c "$repo_path"
 
   # Pane 1 — lazygit or vibe (full width, top ~70 %)
-  if [[ "$repo_path" == "$DOCUMENTS_ROOT"/* ]]; then
-    tmux send-keys -t "$session_name:git" "vibe" Enter
+  if [[ ! -d "$repo_path/.git" ]]; then
+    tmux send-keys -t "$session_name:vibe" "vibe" Enter
   else
     tmux send-keys -t "$session_name:git" "lazygit" Enter
   fi
