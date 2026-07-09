@@ -77,7 +77,6 @@ vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
-
 -- Make line numbers default
 vim.o.number = true
 vim.o.relativenumber = true
@@ -734,7 +733,7 @@ require('lazy').setup({
     version = '1.*',
     dependencies = {
       -- Snippet Engine
-      'milanglacier/minuet-ai.nvim',
+      -- 'milanglacier/minuet-ai.nvim',
       {
         'L3MON4D3/LuaSnip',
         version = '2.*',
@@ -791,7 +790,7 @@ require('lazy').setup({
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
 
-       -- ['<A-y>'] = require('minuet').make_blink_map(),
+        -- ['<A-y>'] = require('minuet').make_blink_map(),
       },
 
       appearance = {
@@ -808,17 +807,17 @@ require('lazy').setup({
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev', 'minuet' },
+        default = { 'lsp', 'path', 'snippets', 'lazydev' },
         providers = {
-          minuet = {
-            name = 'minuet',
-            module = 'minuet.blink',
-            async = true,
-            -- Should match minuet.config.request_timeout * 1000,
-            -- since minuet.config.request_timeout is in seconds
-            timeout_ms = 3000,
-            score_offset = 50, -- Gives minuet higher priority among suggestions
-          },
+          -- minuet = {
+          --   name = 'minuet',
+          --   module = 'minuet.blink',
+          --   async = true,
+          --   -- Should match minuet.config.request_timeout * 1000,
+          --   -- since minuet.config.request_timeout is in seconds
+          --   timeout_ms = 3000,
+          --   score_offset = 50, -- Gives minuet higher priority among suggestions
+          -- },
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
         },
       },

@@ -24,6 +24,7 @@ return {
           ['gx'] = 'actions.open_external',
           ['g.'] = { 'actions.toggle_hidden', mode = 'n' },
           ['g\\'] = { 'actions.toggle_trash', mode = 'n' },
+          ['<M-q>'] = { 'actions.send_to_qflist', opts = { action = 'r', only_matching_search = true, target = 'qflist' }, mode = 'n' },
         },
       }
       vim.keymap.set('n', '<leader>e', '<CMD>Oil<CR>', { desc = 'Open parent dir' })
