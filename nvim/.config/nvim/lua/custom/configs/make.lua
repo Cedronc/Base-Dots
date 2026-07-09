@@ -9,6 +9,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
       sh = 'bash %',
       python = 'uv run %',
     }
+
     local makeprg = filetypes[vim.bo.filetype] or nil
     if not (makeprg == nil) then
       vim.opt.makeprg = makeprg
