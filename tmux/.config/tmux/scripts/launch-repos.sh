@@ -151,7 +151,7 @@ launch_tmux() {
 
   # Pane 2 — a small shell / quick commands area
   tmux send-keys -t "$session_name:git.2" \
-    'echo "  $(basename $(pwd))  |  $(git branch --show-current 2>/dev/null || echo "no git")"' \
+    "echo '  $(basename "$repo_path")  |  '"\$"'(git branch --show-current 2>/dev/null || echo "no git")'" \
     Enter
 
   # ── Window 2: "files" — yazi + shell side by side ───────
