@@ -613,9 +613,9 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
+        clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -628,8 +628,8 @@ require('lazy').setup({
         angularls = {},
         pyright = {},
         ts_ls = {},
-        -- dockerls = {},
-        -- docker_compose_language_service = {},
+        dockerls = {},
+        docker_compose_language_service = {},
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
@@ -800,27 +800,35 @@ require('lazy').setup({
       completion = {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
-        documentation = { auto_show = false, auto_show_delay_ms = 500 },
-        trigger = { prefetch_on_insert = false, show_on_insert = true, show_on_backspace = false },
-        -- list = {
-        --   selection = {
-        --     preselect = false,
-        --   },
-        -- },
+        documentation = { auto_show = true, auto_show_delay_ms = 500 },
+        -- trigger = { prefetch_on_insert = false, show_on_insert = true, show_on_backspace = false },
+        menu = {
+          draw = {
+            columns = {
+              { 'label', 'label_description', 'source_name', gap = 1 },
+              { 'kind_icon', 'kind' },
+            },
+          },
+        },
+        list = {
+          selection = {
+            preselect = false,
+          },
+        },
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev', },
+        default = { 'lsp', 'path', 'snippets', 'lazydev', 'minuet' },
         providers = {
-          -- minuet = {
-          --   name = 'minuet',
-          --   module = 'minuet.blink',
-          --   async = true,
-          --   -- Should match minuet.config.request_timeout * 1000,
-          --   -- since minuet.config.request_timeout is in seconds
-          --   timeout_ms = 3000,
-          --   score_offset = 50, -- Gives minuet higher priority among suggestions
-          -- },
+          minuet = {
+            name = 'minuet',
+            module = 'minuet.blink',
+            async = true,
+            -- Should match minuet.config.request_timeout * 1000,
+            -- since minuet.config.request_timeout is in seconds
+            timeout_ms = 3000,
+            score_offset = 50, -- Gives minuet higher priority among suggestions
+          },
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
         },
       },
