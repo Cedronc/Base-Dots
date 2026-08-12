@@ -17,9 +17,9 @@ vim.o.signcolumn = 'yes'
 vim.cmd 'set nowrap'
 
 vim.cmd 'set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx'
-vim.cmd 'set tabstop=2'
-vim.cmd 'set shiftwidth=2'
-vim.cmd 'set softtabstop=2'
+vim.cmd 'set tabstop=4'
+vim.cmd 'set shiftwidth=4'
+vim.cmd 'set softtabstop=4'
 vim.cmd 'set expandtab'
 vim.cmd 'set noshiftround'
 

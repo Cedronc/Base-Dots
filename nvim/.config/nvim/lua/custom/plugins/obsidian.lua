@@ -1,3 +1,8 @@
+local vault_path = vim.fn.expand("~/Documents/ObsidianVaults")
+if not vim.uv.fs_stat(vault_path) then
+  return {}
+end
+
 vim.keymap.set('n', '<leader>os', ':ObsidianSearch<CR>')
 vim.keymap.set('n', '<leader>ot', ':ObsidianTags<CR>')
 vim.keymap.set('n', '<leader>oi', ':ObsidianPasteImg<CR>')

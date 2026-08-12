@@ -27,29 +27,6 @@ vim.lsp.config("roslyn", {
 })
 
 return {
-  -- {
-  --   'milanglacier/minuet-ai.nvim',
-  --   config = function()
-  --     require('minuet').setup {
-  --       provider_options = {
-  --         codestral = {
-  --           model = 'codestral-latest',
-  --           end_point = 'https://codestral.mistral.ai/v1/fim/completions',
-  --           api_key = 'CODESTRAL_API_KEY',
-  --           stream = true,
-  --           template = {
-  --             prompt = 'See [Prompt Section for default value]',
-  --             suffix = 'See [Prompt Section for default value]',
-  --           },
-  --           optional = {
-  --             stop = nil, -- the identifier to stop the completion generation
-  --             max_tokens = nil,
-  --           },
-  --         },
-  --       },
-  --     }
-  --   end,
-  -- },
   {
     'seblyng/roslyn.nvim',
     ---@module 'roslyn.config'
