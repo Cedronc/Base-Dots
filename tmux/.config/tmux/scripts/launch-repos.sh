@@ -99,18 +99,20 @@ pick_repo() {
         --border-label-pos=3 \
         --info=inline \
         --header="  ctrl-c / esc to abort" \
-        --preview='
-            set dir (string split \t {})[-1]
-            echo "📁 $dir"
-            echo ""
-            if git -C $dir rev-parse --git-dir &>/dev/null 2>&1
-                git -C $dir log --oneline --color=always -5 2>/dev/null
-                echo ""
-                git -C $dir status --short --branch 2>/dev/null
-            else
-                ls -lAh --color=always $dir 2>/dev/null | head -30
-            end
-        ' \
+         --preview='
+             set dir (string split \t {})[-1]
+             if git -C $dir rev-parse --show-toplevel &>/dev/null 2>&1
+                 echo "📁 $dir"
+                 echo ""
+                 git -C $dir log --oneline --color=always -5 2>/dev/null
+                 echo ""
+                 git -C $dir status --short --branch 2>/dev/null
+             else
+                 echo " $dir"
+                 echo ""
+                 ls -lAh --color=always $dir 2>/dev/null | head -30
+             end
+         ' \
         --preview-window=right:50%:wrap \
         $FZF_COLORS
   ) || return 1
@@ -139,9 +141,9 @@ launch_tmux() {
   # ── Create session + window 1: "git" ────────────────────
   tmux new-session -d -s "$session_name" -n "git" -c "$repo_path"
 
-  # Pane 1 — lazygit or vibe (full width, top ~70 %)
-  if [[ ! -d "$repo_path/.git" ]]; then
-    tmux send-keys -t "$session_name:vibe" "vibe" Enter
+   # Pane 1 — lazygit or opencode (full width, top ~70 %)
+  if ! git -C "$repo_path" rev-parse --show-toplevel &>/dev/null; then
+    tmux send-keys -t "$session_name:git" "opencode" Enter
   else
     tmux send-keys -t "$session_name:git" "lazygit" Enter
   fi
@@ -169,15 +171,19 @@ launch_tmux() {
 
   # ── Window 3: "nvim" — nvim ───────────────────
   tmux new-window -t "$session_name" -n "nvim" -c "$repo_path"
-  tmux send-keys -t "$session_name:nvim"
+  tmux send-keys -t "$session_name:nvim" "nvim" Enter
 
-  # ── Status-bar cosmetics (scoped to this session) ────────
-  tmux set-option -t "$session_name" status-style         "bg=#1e1e2e,fg=#cdd6f4"
-  tmux set-option -t "$session_name" window-status-style  "fg=#6c7086"
-  tmux set-option -t "$session_name" window-status-current-style "fg=#cba6f7,bold"
-  tmux set-option -t "$session_name" status-left  "#[fg=#89b4fa,bold] 󰊢 #S #[fg=#6c7086]│ "
-  tmux set-option -t "$session_name" status-right "#[fg=#6c7086]%H:%M  %d %b | #h"
-  tmux set-option -t "$session_name" status-left-length 40
+   # ── Status-bar cosmetics (scoped to this session) ────────
+   # tmux set-option -t "$session_name" status-style         "bg=#1e1e2e,fg=#cdd6f4"
+   # tmux set-option -t "$session_name" window-status-style  "fg=#2b2a26"
+   # tmux set-option -t "$session_name" window-status-current-style "fg=#cba6f7"
+   if ! git -C "$repo_path" rev-parse --show-toplevel &>/dev/null; then
+     tmux set-option -t "$session_name" status-left  "#[fg=#89b4fa,bold]  #S #[fg=#6c7086]│ "
+   else
+     tmux set-option -t "$session_name" status-left  "#[fg=#89b4fa,bold] 󰊢 #S #[fg=#6c7086]│ "
+   fi
+   tmux set-option -t "$session_name" status-right "#[fg=#6c7086]%H:%M  %d %b | #h"
+   tmux set-option -t "$session_name" status-left-length 40
 
   # Focus window 1 pane 1 (lazygit) on attach
   tmux select-window -t "$session_name:git"
