@@ -176,7 +176,7 @@ launch_tmux() {
   tmux set-option -t "$session_name" window-status-style  "fg=#6c7086"
   tmux set-option -t "$session_name" window-status-current-style "fg=#cba6f7,bold"
   tmux set-option -t "$session_name" status-left  "#[fg=#89b4fa,bold] 󰊢 #S #[fg=#6c7086]│ "
-  tmux set-option -t "$session_name" status-right "#[fg=#6c7086]%H:%M  %d %b "
+  tmux set-option -t "$session_name" status-right "#[fg=#6c7086]%H:%M  %d %b | #h"
   tmux set-option -t "$session_name" status-left-length 40
 
   # Focus window 1 pane 1 (lazygit) on attach
