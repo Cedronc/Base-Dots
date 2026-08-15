@@ -167,9 +167,9 @@ launch_tmux() {
   tmux send-keys -t "$session_name:files.2" \
     'echo "  shell ready"' Enter
 
-  # ── Window 3: "term" — plain terminal ───────────────────
-  tmux new-window -t "$session_name" -n "term" -c "$repo_path"
-  tmux send-keys -t "$session_name:term"
+  # ── Window 3: "nvim" — nvim ───────────────────
+  tmux new-window -t "$session_name" -n "nvim" -c "$repo_path"
+  tmux send-keys -t "$session_name:nvim"
 
   # ── Status-bar cosmetics (scoped to this session) ────────
   tmux set-option -t "$session_name" status-style         "bg=#1e1e2e,fg=#cdd6f4"

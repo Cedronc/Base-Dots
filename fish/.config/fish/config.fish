@@ -21,3 +21,6 @@ end
 function lg
   command lazygit
 end
+
+# opencode
+fish_add_path /home/cedric/.opencode/bin
