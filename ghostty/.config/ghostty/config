@@ -45,3 +45,6 @@
 confirm-close-surface = false
 # background-opacity = 0.90
 clipboard-paste-protection = false
+
+# Use Gruvbox Dark theme
+theme = Gruvbox Dark

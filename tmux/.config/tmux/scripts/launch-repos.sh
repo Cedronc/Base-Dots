@@ -20,11 +20,11 @@ FLAT_PARENTS=(
   # "forks"   ← uncomment / add more as needed
 )
 
-# ─── Colour palette for fzf ───────────────────────────────
+# ─── Colour palette for fzf (Gruvbox) ────────────────────
 FZF_COLORS="
-  --color=bg+:#1e1e2e,bg:#11111b,spinner:#f5c2e7,hl:#cba6f7
-  --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5c2e7
-  --color=marker:#f5c2e7,fg+:#cdd6f4,prompt:#cba6f7,hl+:#cba6f7
+  --color=bg+:#3c3836,bg:#282828,spinner:#d79921,hl:#b16286
+  --color=fg:#ebdbb2,header:#cc241d,info:#458588,pointer:#d79921
+  --color=marker:#d79921,fg+:#ebdbb2,prompt:#458588,hl+:#b16286
 "
 
 # ─── Helpers ──────────────────────────────────────────────
@@ -173,16 +173,16 @@ launch_tmux() {
   tmux new-window -t "$session_name" -n "nvim" -c "$repo_path"
   tmux send-keys -t "$session_name:nvim" "nvim" Enter
 
-   # ── Status-bar cosmetics (scoped to this session) ────────
-   # tmux set-option -t "$session_name" status-style         "bg=#1e1e2e,fg=#cdd6f4"
-   # tmux set-option -t "$session_name" window-status-style  "fg=#2b2a26"
-   # tmux set-option -t "$session_name" window-status-current-style "fg=#cba6f7"
+   # ── Status-bar cosmetics (scoped to this session, Gruvbox) ---
+   # tmux set-option -t "$session_name" status-style         "bg=#282828,fg=#ebdbb2"
+   # tmux set-option -t "$session_name" window-status-style  "fg=#a89984"
+   # tmux set-option -t "$session_name" window-status-current-style "fg=#b16286,bold"
    if ! git -C "$repo_path" rev-parse --show-toplevel &>/dev/null; then
-     tmux set-option -t "$session_name" status-left  "#[fg=#89b4fa,bold]  #S #[fg=#6c7086]│ "
+     tmux set-option -t "$session_name" status-left  "#[fg=#d79921,bold]  #S #[fg=#a89984]│ "
    else
-     tmux set-option -t "$session_name" status-left  "#[fg=#89b4fa,bold] 󰊢 #S #[fg=#6c7086]│ "
+     tmux set-option -t "$session_name" status-left  "#[fg=#d79921,bold] 󰊢 #S #[fg=#a89984]│ "
    fi
-   tmux set-option -t "$session_name" status-right "#[fg=#6c7086]%H:%M  %d %b | #h"
+   tmux set-option -t "$session_name" status-right "#[fg=#a89984]%H:%M  %d %b | #h"
    tmux set-option -t "$session_name" status-left-length 40
 
   # Focus window 1 pane 1 (lazygit) on attach

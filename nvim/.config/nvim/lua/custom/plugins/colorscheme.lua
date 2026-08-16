@@ -4,7 +4,7 @@ return {
     config = function()
       -- NOTE: you do not need to call setup if you don't want to.
       require('gruvbox').setup { }
-      -- vim.cmd 'colorscheme gruvbox
+      vim.cmd 'colorscheme gruvbox'
     end,
     opts = {}},
   { -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
@@ -28,7 +28,7 @@ return {
       -- directly inside the plugin declaration.
       vim.g.everforest_enable_italic = true
       vim.g.everforest_background = 'hard'
-      vim.cmd.colorscheme 'everforest'
+      -- vim.cmd.colorscheme 'everforest'
     end,
   },
   {
