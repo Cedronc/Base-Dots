@@ -1,0 +1,77 @@
+name: Commit Checks
+
+on: [push]
+
+jobs:
+  commit-checks:
+    name: Commit Checks
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch full history for commit analysis
+
+      - name: Set up Node.js
+        if: contains(matrix.os, 'ubuntu') || contains(matrix.os, 'macos') || contains(matrix.os, 'windows')
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        if: contains(matrix.os, 'ubuntu') || contains(matrix.os, 'macos') || contains(matrix.os, 'windows')
+        run: npm install
+
+      - name: Run linter
+        if: contains(matrix.os, 'ubuntu') || contains(matrix.os, 'macos') || contains(matrix.os, 'windows')
+        run: npm run lint
+
+      - name: Validate commit messages (conventional commits)
+        if: contains(matrix.os, 'ubuntu')
+        run: |
+          npm install -g @commitlint/cli @commitlint/config-conventional
+          echo "module.exports = { extends: ['@commitlint/config-conventional'] }" > commitlint.config.js
+          npx commitlint --from=HEAD~1 --to=HEAD --verbose
+
+      - name: Check commit structure
+        if: contains(matrix.os, 'ubuntu')
+        run: |
+          # Check for WIP commits
+          WIP_COMMITS=$(git log --oneline --grep="WIP" --grep="wip" --grep="Work in Progress" --since="24 hours ago")
+          if [ -n "$WIP_COMMITS" ]; then
+            echo "::error::WIP commits detected:"
+            echo "$WIP_COMMITS" | while read -r commit; do
+              echo "::error::WIP commit: $commit"
+            done
+            exit 1
+          fi
+
+          # Check for merge commits
+          MERGE_COMMITS=$(git log --oneline --merges --since="24 hours ago")
+          if [ -n "$MERGE_COMMITS" ]; then
+            echo "::error::Merge commits detected:"
+            echo "$MERGE_COMMITS" | while read -r commit; do
+              echo "::error::Merge commit: $commit"
+            done
+            exit 1
+          fi
+
+          # Check for large commits (arbitrary threshold: 100 lines)
+          LARGE_COMMITS=$(git log --pretty=format:"%h %s" --since="24 hours ago" | while read -r commit; do
+            hash=$(echo "$commit" | cut -d ' ' -f1)
+            lines=$(git show --stat "$hash" | grep "changed" | awk '{print $4}' | tr -d ',' | awk '{sum+=$1} END {print sum}')
+            if [ "$lines" -gt 100 ]; then
+              echo "$commit (${lines} lines)"
+            fi
+          done)
+          if [ -n "$LARGE_COMMITS" ]; then
+            echo "::error::Large commits detected (over 100 lines):"
+            echo "$LARGE_COMMITS" | while read -r commit; do
+              echo "::error::Large commit: $commit"
+            done
+            exit 1
+          fi
