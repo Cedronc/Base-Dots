@@ -1,0 +1,27 @@
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[user]
+	email = cedricmrtl@pm.me
+	name = Cedric Martel
+[merge]
+	guitool = kdiff3
+	tool = kdiff3
+[mergetool "kdiff3"]
+	path = /usr/bin/kdiff3
+	trustExitCode = true
+[diff]
+	tool = kdiff3
+[difftool "kdiff3"]
+	path = /usr/bin/kdiff3
+[difftool]
+	prompt = false
+[fetch]
+	prune = true
+[alias]
+	st = status
+	co = checkout
+	visual = !lazygit
