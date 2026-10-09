@@ -24,4 +24,8 @@
 [alias]
 	st = status
 	co = checkout
-	visual = !lazygit
+	visual = log --graph --oneline --decorate
+	wka = worktree add
+[credential "https://gitlab.com"]
+	helper = 
+	helper = !/usr/bin/glab auth git-credential
