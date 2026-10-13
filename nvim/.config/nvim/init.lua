@@ -733,7 +733,6 @@ require('lazy').setup({
     version = '1.*',
     dependencies = {
       -- Snippet Engine
-      -- 'milanglacier/minuet-ai.nvim',
       {
         'L3MON4D3/LuaSnip',
         version = '2.*',
@@ -818,17 +817,8 @@ require('lazy').setup({
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev', 'minuet' },
+        default = { 'lsp', 'path', 'snippets', 'lazydev' },
         providers = {
-          minuet = {
-            name = 'minuet',
-            module = 'minuet.blink',
-            async = true,
-            -- Should match minuet.config.request_timeout * 1000,
-            -- since minuet.config.request_timeout is in seconds
-            timeout_ms = 3000,
-            score_offset = 50, -- Gives minuet higher priority among suggestions
-          },
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
         },
       },
