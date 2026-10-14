@@ -29,3 +29,7 @@
 [credential "https://gitlab.com"]
 	helper = 
 	helper = !/usr/bin/glab auth git-credential
+[init]
+	defaultBranch = development
+[advice]
+	defaultBranchName = false
