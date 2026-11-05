@@ -34,6 +34,13 @@ return {
       desc = 'Debug: Start/Continue',
     },
     {
+      '<F6>',
+      function()
+        require('dap').disconnect()
+      end,
+      desc = 'Debug: Start/Continue',
+    },
+    {
       '<F1>',
       function()
         require('dap').step_into()
@@ -72,6 +79,7 @@ return {
     {
       '<F7>',
       function()
+        require('dap').disconnect()
         require('dapui').toggle()
       end,
       desc = 'Debug: See last session result.',
