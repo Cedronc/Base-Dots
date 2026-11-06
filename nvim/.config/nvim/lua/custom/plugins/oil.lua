@@ -34,4 +34,17 @@ return {
     -- Lazy loading is not recommended because it is very tricky to make it work correctly in all situations.
     lazy = false,
   },
+  {
+      "benomahony/oil-git.nvim",
+      dependencies = { "stevearc/oil.nvim" },
+      config = function()
+          vim.cmd([[
+          highlight OilGitAdded guifg=#00ff00
+          highlight OilGitModified guifg=#ffff00  
+          highlight OilGitRenamed guifg=#ff00ff
+          highlight OilGitUntracked guifg=#00ffff
+          highlight OilGitIgnored guifg=#808080
+          ]])
+      end,
+  }
 }
